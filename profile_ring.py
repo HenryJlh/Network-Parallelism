@@ -80,7 +80,7 @@ for i in range(0, params.N):
 
 # Create all the links.
 for i in range(0, params.N):
-    j = (i+1)%N
+    j = (i+1)%(params.N)
     nodeA = nodes[i]
     nodeB = nodes[j]
 
