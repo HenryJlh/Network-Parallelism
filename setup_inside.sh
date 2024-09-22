@@ -1,6 +1,6 @@
 pip install huggingface_hub
 cd /data/workspace
-git clone https://github.com/HenryJlh/Megatron-LM.git
+git clone https://github.com/HenryJlh/megatron-lm.git
 # git clone https://github.com/NVIDIA/megatron-lm.git
 # Change Hugging Face cache directory
 export HF_HOME=/data/huggingface
