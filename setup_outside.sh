@@ -39,4 +39,34 @@ echo 'ZzhiOGszaW0ydDM4dDYzY3I2bWZudHMzNTI6YjVjN2E1ZDYtMmRlNy00ZTYwLWFlOTYtZDJjMT
 sudo docker pull nvcr.io/nvidia/pytorch:24.05-py3
 mkdir /data/workspace
 
+#if you run the docker with one node.
 sudo docker run --gpus all -it --rm -v /data/workspace:/data/workspace nvcr.io/nvidia/pytorch:24.05-py3
+#if you run the docker with multiple nodes. (#node=4).
+sudo docker run --gpus all -it --rm --net=host \
+    --cap-add=NET_ADMIN \
+    -v /data/workspace:/data/workspace \
+    -e WORLD_SIZE=4\
+    -e RANK=3 \
+    -e LOCAL_RANK=0\
+    nvcr.io/nvidia/pytorch:24.05-py3
+sudo docker run --gpus all -it --rm --net=host \
+    --cap-add=NET_ADMIN \
+    -v /data/workspace:/data/workspace \
+    -e WORLD_SIZE=4\
+    -e RANK=3 \
+    -e LOCAL_RANK=1\
+    nvcr.io/nvidia/pytorch:24.05-py3
+sudo docker run --gpus all -it --rm --net=host \
+    --cap-add=NET_ADMIN \
+    -v /data/workspace:/data/workspace \
+    -e WORLD_SIZE=4\
+    -e RANK=3 \
+    -e LOCAL_RANK=2\
+    nvcr.io/nvidia/pytorch:24.05-py3
+sudo docker run --gpus all -it --rm --net=host \
+    --cap-add=NET_ADMIN \
+    -v /data/workspace:/data/workspace \
+    -e WORLD_SIZE=4\
+    -e RANK=3 \
+    -e LOCAL_RANK=3\
+    nvcr.io/nvidia/pytorch:24.05-py3
