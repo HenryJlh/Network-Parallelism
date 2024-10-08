@@ -7,6 +7,7 @@ export CUDA_DEVICE_MAX_CONNECTIONS=1
 export LOCAL_RANK=0
 
 # torchrun the megatron
+# change the node_rank to 0-3. (same as local rank)
 # nproc_per_node: number of gpus per node.
 # master_addr: generally node1's internal ip.
 # master_port: randomly set.
