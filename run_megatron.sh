@@ -68,3 +68,8 @@ tc qdisc del dev vlan1102 root
 # after you set the bandwidth, you can enforce the socket used for communication by setting env-var.
 export NCCL_SOCKET_IFNAME=vlan1102,vlan1126,vlan1125,vlan1122 
 
+# you can also add the checkpoint, but it will take more time for training. 
+    --save ./checkpoints/gpt-2 \
+    --load ./checkpoints/gpt-2 \
+# remove the checkpoint files
+rm -rf /data/workspace/Models/gpt-2/checkpoints/*
