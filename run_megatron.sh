@@ -7,6 +7,11 @@ export CUDA_DEVICE_MAX_CONNECTIONS=1
 export LOCAL_RANK=0
 
 # torchrun the megatron
+# nproc_per_node: number of gpus per node.
+# master_addr: generally node1's internal ip.
+# master_port: randomly set.
+# tensor-model-parallel-size, pipeline-model-parallel-size, explicitly set the parallelism.
+# data-model-parallel-size, implicitly set by the code. (DP = num_gpus/TP/PP) 
 torchrun --nproc_per_node 1 \
     --nnodes 4 \
     --node_rank 0\
@@ -52,12 +57,13 @@ ifconfig
 iperf3 -s
 iperf3 -c 10.10.1.1
 
-# use "tc", you can force the bandwidth. (e.g. set vlan1203 100mbit/s)
-tc qdisc add dev vlan1203 root handle 1: htb default 11
-tc class add dev vlan1203 parent 1: classid 1:1 htb rate 100mbit
-tc class add dev vlan1203 parent 1:1 classid 1:11 htb rate 100mbit
-tc qdisc show dev vlan1203
+# use "tc", you can force the bandwidth. (e.g. set vlan1102 100mbit/s)
+tc qdisc add dev vlan1102 root handle 1: htb default 11
+tc class add dev vlan1102 parent 1: classid 1:1 htb rate 100mbit
+tc class add dev vlan1102 parent 1:1 classid 1:11 htb rate 100mbit
+tc qdisc show dev vlan1102
 # delete one tc setting
-tc qdisc del dev vlan1203 root
-# after you set the bandwidth
+tc qdisc del dev vlan1102 root
+# after you set the bandwidth, you can enforce the socket used for communication by setting env-var.
+export NCCL_SOCKET_IFNAME=vlan1102,vlan1126,vlan1125,vlan1122 
 
