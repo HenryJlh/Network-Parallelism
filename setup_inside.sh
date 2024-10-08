@@ -33,4 +33,6 @@ mv meg-gpt2* ./data
 
 apt update
 apt install net-tools
-netstat -anop | grep tcp
+apt install inetutils-ping
+apt install iperf3
+apt-get install iproute2
